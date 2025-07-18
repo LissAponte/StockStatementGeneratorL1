@@ -21,7 +21,7 @@ public class Main {
         try
         {
             StockObj[] stockArray = mapper.readValue(jsonFile, StockObj[].class);
-            createHTMLReport(stockArray[0]);
+            createHTMLReport(stockArray[9]);
         }
         catch (IOException e)
         {
@@ -61,7 +61,7 @@ public class Main {
                 "</body>\n" +
                 "</html>";
 
-        try (PrintWriter writer = new PrintWriter(new FileWriter("output.html"))) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(obj.account_number + ".html"))) {
             writer.println(htmlContent);
             System.out.println("HTML file created successfully!");
         } catch (IOException e) {
