@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.text.NumberFormat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.w3c.dom.ls.LSOutput;
 
 public class Main {
+
+   //duck
     private static File jsonFile;
     static NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
     public static void main(String[] args) {
