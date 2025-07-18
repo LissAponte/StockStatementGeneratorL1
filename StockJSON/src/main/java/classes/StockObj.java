@@ -12,11 +12,11 @@ public class StockObj {
     public String last_name;
     public String email;
     public String phone;
-    public float beginning_balance;
+    public double beginning_balance;
     public Trade[] stock_trades;
 
     public void setBeginning_balance(String obj)
     {
-        beginning_balance = Main.strToFloat(obj);
+        beginning_balance = Main.strToDouble(obj);
     }
 }

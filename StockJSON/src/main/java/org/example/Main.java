@@ -29,22 +29,25 @@ public class Main {
         }
 
     }
-    public static float strToFloat(String money)
+    public static double strToDouble(String money)
     {
         String cleanedStr = money.substring(1);
-        return Float.parseFloat(cleanedStr);
+        return 1;
+        //return double holdFloat = Double.parseDouble(cleanedStr);
     }
-    private static String cashFormatter(float amount)
+    private static String cashFormatter(double amount)
     {
         return currencyFormatter.format(amount);
     }
     static private void createHTMLReport(StockObj obj)
     {
+        double cashTotal = obj.beginning_balance, stockTotal = 0;
         String displayName = "Name: " + obj.first_name+ " " + obj.last_name;
         String displaySSN = "SSN: " + obj.ssn;
         String displayEmail = "Email: " + obj.email;
         String displayPhone = "Phone: " + obj.phone;
         String displayAccountNum = "Account#: " + obj.account_number;
+        String displayStart = "Starting Cash: " + cashFormatter(obj.beginning_balance);
 
         String htmlContent = "<!DOCTYPE html>\n" +
                 "<html>\n" +
@@ -57,7 +60,34 @@ public class Main {
                 "    <p>" + displayEmail+"</p>\n" +
                 "    <p>" + displayPhone+"</p>\n" +
                 "    <p>" + displayAccountNum+"</p>\n" +
-                "    <p>This HTML was generated using java.io.</p>\n" +
+                "    <p>"+displayStart+"</p>\n" +
+                "    <p>"+obj.beginning_balance+"</p>\n" +
+                "    <p>"+7680675.39+"</p>\n" +
+                //7680675.39
+                "    <table>\n" +
+                "        <tr>\n" +
+                "            <th>Type</th>\n" +
+                "            <th>Symbol</th>\n" +
+                "            <th>Price</th>\n" +
+                "            <th>Shares</th>\n" +
+                "            <th>Total</th>\n" +
+                "        </tr>\n";
+        /*
+        for(Trade transaction: obj.stock_trades)
+        {
+            float shiftAmount = transaction.count_shares * transaction.price_per_share;
+            if(transaction.type == "buy")
+            {
+
+            }
+            else if(transaction.type == "sell"){
+
+            }
+        }
+         */
+
+        htmlContent +=
+                "</table>\n" +
                 "</body>\n" +
                 "</html>";
 
