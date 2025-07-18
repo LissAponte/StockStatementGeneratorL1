@@ -3,6 +3,9 @@ import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
 import classes.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -18,6 +21,7 @@ public class Main {
         try
         {
             StockObj[] stockArray = mapper.readValue(jsonFile, StockObj[].class);
+            createHTMLReport(stockArray[0]);
         }
         catch (IOException e)
         {
@@ -34,13 +38,35 @@ public class Main {
     {
         return currencyFormatter.format(amount);
     }
-    private void createHTMLReport(StockObj obj)
+    static private void createHTMLReport(StockObj obj)
     {
         String displayName = "Name: " + obj.first_name+ " " + obj.last_name;
         String displaySSN = "SSN: " + obj.ssn;
         String displayEmail = "Email: " + obj.email;
         String displayPhone = "Phone: " + obj.phone;
         String displayAccountNum = "Account#: " + obj.account_number;
+
+        String htmlContent = "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "<head>\n" +
+                "    <title>TestData</title>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "    <p>" + displayName+"</p>\n" +
+                "    <p>" + displaySSN+"</p>\n" +
+                "    <p>" + displayEmail+"</p>\n" +
+                "    <p>" + displayPhone+"</p>\n" +
+                "    <p>" + displayAccountNum+"</p>\n" +
+                "    <p>This HTML was generated using java.io.</p>\n" +
+                "</body>\n" +
+                "</html>";
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter("output.html"))) {
+            writer.println(htmlContent);
+            System.out.println("HTML file created successfully!");
+        } catch (IOException e) {
+            System.err.println("Error writing HTML file: " + e.getMessage());
+        }
     }
 }
 
