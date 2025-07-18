@@ -21,7 +21,7 @@ public class Main {
         try
         {
             StockObj[] stockArray = mapper.readValue(jsonFile, StockObj[].class);
-            createHTMLReport(stockArray[9]);
+            createHTMLReport(stockArray[0]);
         }
         catch (IOException e)
         {
@@ -32,7 +32,7 @@ public class Main {
     public static double strToDouble(String money)
     {
         String cleanedStr = money.substring(1);
-        return 1;
+        return Double.parseDouble(cleanedStr);
         //return double holdFloat = Double.parseDouble(cleanedStr);
     }
     private static String cashFormatter(double amount)
@@ -61,9 +61,6 @@ public class Main {
                 "    <p>" + displayPhone+"</p>\n" +
                 "    <p>" + displayAccountNum+"</p>\n" +
                 "    <p>"+displayStart+"</p>\n" +
-                "    <p>"+obj.beginning_balance+"</p>\n" +
-                "    <p>"+7680675.39+"</p>\n" +
-                //7680675.39
                 "    <table>\n" +
                 "        <tr>\n" +
                 "            <th>Type</th>\n" +
@@ -72,22 +69,35 @@ public class Main {
                 "            <th>Shares</th>\n" +
                 "            <th>Total</th>\n" +
                 "        </tr>\n";
-        /*
+
         for(Trade transaction: obj.stock_trades)
         {
-            float shiftAmount = transaction.count_shares * transaction.price_per_share;
-            if(transaction.type == "buy")
+            double shiftAmount = transaction.count_shares * transaction.price_per_share;
+            htmlContent +=
+                    "        <tr>\n" +
+                            "            <td>"+transaction.type+"</td>\n" +
+                            "            <td>"+transaction.stock_symbol+"</td>\n" +
+                            "            <td>"+cashFormatter(transaction.price_per_share)+"</td>\n" +
+                            "            <td>"+transaction.count_shares+"</td>\n" +
+                            "            <td>"+cashFormatter(shiftAmount)+"</td>\n" +
+                            "        </tr>\n";
+            if(transaction.type.equals("Buy"))
             {
-
+                cashTotal -= shiftAmount;
+                stockTotal += shiftAmount;
             }
-            else if(transaction.type == "sell"){
-
+            else if(transaction.type.equals("Sell")){
+                cashTotal += shiftAmount;
+                stockTotal -= shiftAmount;
             }
         }
-         */
+        String displayCashTotal = "Cash Value: "+cashFormatter(cashTotal);
+        String displayStockTotal = "Stock Value: "+cashFormatter(stockTotal);
 
         htmlContent +=
                 "</table>\n" +
+                "    <p>" + displayCashTotal+"</p>\n" +
+                "    <p>" + displayStockTotal+"</p>\n" +
                 "</body>\n" +
                 "</html>";
 
