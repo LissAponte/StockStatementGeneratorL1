@@ -22,7 +22,7 @@ public class Main {
         try
         {
             StockObj[] stockArray = mapper.readValue(jsonFile, StockObj[].class);
-            createHTMLReport(stockArray[0]);
+            createHTMLReport(stockArray[9]);
         }
         catch (IOException e)
         {
