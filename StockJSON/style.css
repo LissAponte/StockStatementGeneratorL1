@@ -24,6 +24,10 @@ table, th, td{
     width: 5px;
 }
 
+table {
+    width: 100%;
+}
+
 
 
 
