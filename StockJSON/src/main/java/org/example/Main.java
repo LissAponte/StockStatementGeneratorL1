@@ -6,6 +6,7 @@ import classes.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -55,6 +56,7 @@ public class Main {
                 "    <title>TestData</title>\n" +
                 "</head>\n" +
                 "<body>\n" +
+                "    <h1>" + LocalDate.now() + "</h1>" +
                 "    <p>" + displayName+"</p>\n" +
                 "    <p>" + displaySSN+"</p>\n" +
                 "    <p>" + displayEmail+"</p>\n" +
