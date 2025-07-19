@@ -10,7 +10,7 @@ body{
     font-family: 'Segoe UI', sans-serif;
     background-color: lightblue;
     color: black;
-    line-height: 1.6rem;
+    line-height: 1.6;
     padding: 2rem;
 }
 
