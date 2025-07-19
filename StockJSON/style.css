@@ -16,7 +16,16 @@ body{
 
 tr:nth-child(even){
     background-color: pink;
+
 }
+
+table, th, td{
+    border:  2px solid;
+    width: 5px;
+}
+
+
+
 
 
 
