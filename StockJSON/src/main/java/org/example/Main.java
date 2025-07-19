@@ -53,6 +53,7 @@ public class Main {
         String htmlContent = "<!DOCTYPE html>\n" +
                 "<html>\n" +
                 "<head>\n" +
+                "    <link rel=\"styleSheet\" href=\"style.css\"</link>\n" +
                 "    <title>TestData</title>\n" +
                 "</head>\n" +
                 "<body>\n" +
