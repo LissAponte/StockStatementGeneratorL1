@@ -20,6 +20,7 @@ tr:nth-child(even){
 }
 
 table, th, td{
+    border-collapse: collapse;
     border:  2px solid;
     width: 5px;
 }

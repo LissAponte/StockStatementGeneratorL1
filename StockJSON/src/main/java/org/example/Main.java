@@ -1,14 +1,12 @@
 package org.example;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.URISyntaxException;
 import java.text.NumberFormat;
 import classes.*;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 
 
 public class Main {
@@ -22,7 +20,11 @@ public class Main {
         try
         {
             StockObj[] stockArray = mapper.readValue(jsonFile, StockObj[].class);
-            createHTMLReport(stockArray[9]);
+            for(StockObj report: stockArray)
+            {
+                createHTMLReport(report);
+            }
+
         }
         catch (IOException e)
         {
@@ -53,7 +55,7 @@ public class Main {
         String htmlContent = "<!DOCTYPE html>\n" +
                 "<html>\n" +
                 "<head>\n" +
-                "    <link rel=\"styleSheet\" href=\"style.css\"</link>\n" +
+                "    <link rel=\"styleSheet\" href=\"style.css\"></link>\n" +
                 "    <title>TestData</title>\n" +
                 "</head>\n" +
                 "<body>\n" +
@@ -104,12 +106,30 @@ public class Main {
                 "</body>\n" +
                 "</html>";
 
-        try (PrintWriter writer = new PrintWriter(new FileWriter(obj.account_number + ".html"))) {
+        //"src\main\output\HTML\"+
+        try (PrintWriter writer = new PrintWriter(new FileWriter("src/main/output/HTML/"+obj.account_number + ".html"))) {
             writer.println(htmlContent);
             System.out.println("HTML file created successfully!");
         } catch (IOException e) {
             System.err.println("Error writing HTML file: " + e.getMessage());
         }
+
+
+        try{
+            File template = new File("src/main/output/HTML/"+obj.account_number + ".html");
+
+            try (OutputStream os = new FileOutputStream("src/main/output/PDF/"+obj.account_number + ".pdf")) {
+                PdfRendererBuilder builder = new PdfRendererBuilder();
+                builder.useFastMode();
+                builder.withFile(template);
+                builder.toStream(os);
+                builder.run();
+            }
+        }
+        catch(FileNotFoundException e){ System.err.println("File not found: " + e.getMessage()); }
+        catch(IOException e){ System.err.println("Error writing HTML file: " + e.getMessage()); }
+
+
     }
 }
 
